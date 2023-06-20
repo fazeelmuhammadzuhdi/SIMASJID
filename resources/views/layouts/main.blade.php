@@ -71,6 +71,7 @@
                 {{-- <h3>Profile Statistics</h3> --}}
             </div>
             <div class="page-content">
+                @include('flash::message')
                 @yield('content')
             </div>
 

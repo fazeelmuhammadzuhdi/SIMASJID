@@ -56,6 +56,7 @@ class MasjidController extends Controller
         // dd($user);
         $user->masjid_id = $masjid->id;
         $user->save();
+        flash('Data Berhasil Disimpan')->success();
         return back();
     }
 
