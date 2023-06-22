@@ -24,9 +24,11 @@ class MasjidController extends Controller
         // dd($masjid);
         //jika user masjid masih kosong maka buat datanya dan update usernya sekaligus
         $masjid = $masjid ?? new Masjid();
+        $title = "Form Masjid";
 
         return view('masjid.create', [
-            'masjid' => $masjid
+            'masjid' => $masjid,
+            'title' => $title
         ]);
     }
 

@@ -10,3 +10,12 @@
         $('.alert-success').slideUp();
     }, 5000); // Pesan flash akan hilang setelah 5 detik (5000 milidetik)
 </script>
+<script>
+    $(document).ready(function() {
+        // Cek apakah submenu aktif
+        if ($('.submenu-item.active').length) {
+            // Tambahkan kelas 'menu-open' pada elemen parent submenu
+            $('.submenu-item.active').closest('.has-sub').addClass('menu-open');
+        }
+    });
+</script>

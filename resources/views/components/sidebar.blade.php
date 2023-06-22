@@ -2,23 +2,22 @@
      <ul class="menu">
          <li class="sidebar-title">Menu</li>
 
-         <li class="sidebar-item active ">
+         <li class="sidebar-item {{ Route::is('home') ? 'active' : '' }} ">
              <a href="{{ route('home') }}" class='sidebar-link'>
                  <i class="bi bi-grid-fill"></i>
                  <span>Dashboard</span>
              </a>
          </li>
 
-         <li class="sidebar-item  has-sub">
-             <a href="#" class='sidebar-link'>
+         <li class="sidebar-item has-sub {{ Route::is('masjid.*') ? 'active open' : '' }}">
+             <a href="#" class="sidebar-link">
                  <i class="bi bi-stack"></i>
                  <span>Data Masjid</span>
              </a>
-             <ul class="submenu ">
-                 <li class="submenu-item ">
+             <ul class="submenu {{ Route::is('masjid.*') ? 'menu-open' : '' }}">
+                 <li class="submenu-item {{ Route::is('masjid.*') ? 'active open' : '' }}">
                      <a href="{{ route('masjid.create') }}">Form Masjid</a>
                  </li>
-
              </ul>
          </li>
 
