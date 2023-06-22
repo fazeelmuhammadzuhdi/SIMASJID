@@ -11,6 +11,11 @@
     }, 5000); // Pesan flash akan hilang setelah 5 detik (5000 milidetik)
 </script>
 <script>
+    setTimeout(function() {
+        $('.alert-danger').slideUp();
+    }, 3000); // Pesan flash akan hilang setelah 5 detik (5000 milidetik)
+</script>
+<script>
     $(document).ready(function() {
         // Cek apakah submenu aktif
         if ($('.submenu-item.active').length) {

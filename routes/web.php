@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KasController;
 use App\Http\Controllers\MasjidController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Middleware\EnsureDataMasjidCompleted;
@@ -28,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('masjid', MasjidController::class);
 
     Route::middleware(EnsureDataMasjidCompleted::class)->group(function () {
+        Route::resource('kas', KasController::class);
         Route::resource('userprofile', UserProfileController::class);
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     });

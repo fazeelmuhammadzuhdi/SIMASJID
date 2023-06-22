@@ -9,7 +9,7 @@
              </a>
          </li>
 
-         <li class="sidebar-item has-sub {{ Route::is('masjid.*') ? 'active open' : '' }}">
+         <li class="sidebar-item has-sub {{ Route::is('masjid.*') || Route::is('kas.*') ? 'active open' : '' }}">
              <a href="#" class="sidebar-link">
                  <i class="bi bi-stack"></i>
                  <span>Data Masjid</span>
@@ -18,7 +18,11 @@
                  <li class="submenu-item {{ Route::is('masjid.*') ? 'active open' : '' }}">
                      <a href="{{ route('masjid.create') }}">Form Masjid</a>
                  </li>
+                 <li class="submenu-item {{ Route::is('kas.*') ? 'active open' : '' }}">
+                     <a href="{{ route('kas.index') }}">Kas Masjid</a>
+                 </li>
              </ul>
+
          </li>
 
          <li class="sidebar-item">
