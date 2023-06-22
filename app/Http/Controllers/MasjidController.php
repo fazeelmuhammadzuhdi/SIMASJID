@@ -20,6 +20,9 @@ class MasjidController extends Controller
      */
     public function create()
     {
+        // $user = auth()->user()->masjid; kodingan ini sama dengan kodingan dibawah ini
+        // $masjid = Masjid::where('id', auth()->user()->masjid_id)->first();
+
         $masjid = auth()->user()->masjid;
         // dd($masjid);
         //jika user masjid masih kosong maka buat datanya dan update usernya sekaligus
@@ -44,6 +47,7 @@ class MasjidController extends Controller
             'email' => 'required',
         ]);
 
+        //mengambil data masjid yang sedang login
         $masjid = auth()->user()->masjid;
         // dd($masjid);
         //jika user masjid masih kosong maka buat datanya dan update usernya sekaligus
@@ -54,6 +58,7 @@ class MasjidController extends Controller
         $masjid->email = $data['email'];
         $masjid->save();
 
+        //mengambil objek model user atau mengambil user yang sedang login
         $user = auth()->user();
         // dd($user);
         $user->masjid_id = $masjid->id;
