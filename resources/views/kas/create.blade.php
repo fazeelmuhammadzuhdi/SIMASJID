@@ -34,7 +34,7 @@
 
                                 {!! Form::model($kas, [
                                     'method' => isset($kas->id) ? 'PUT' : 'POST',
-                                    'route' => isset($kas->id) ? ['kas.update', $data->id] : 'kas.store',
+                                    'route' => isset($kas->id) ? ['kas.update', $kas->id] : 'kas.store',
                                 ]) !!}
 
                                 {{-- <div class="form-group">
@@ -47,9 +47,13 @@
 
                                 <div class="form-group mt-3">
                                     <label for="first-name-vertical">Tanggal</label>
-                                    {!! Form::date('tanggal', $kas->tanggal ?? now(), [
-                                        'class' => 'form-control' . ($errors->has('tanggal') ? ' is-invalid' : ''),
-                                    ]) !!}
+                                    {!! Form::date(
+                                        'tanggal',
+                                        $kas->tanggal ?? now(),
+                                        [
+                                            'class' => 'form-control' . ($errors->has('tanggal') ? ' is-invalid' : ''),
+                                        ] + $disable,
+                                    ) !!}
                                     <span class="text-danger">{!! $errors->first('tanggal') !!}</span>
                                 </div>
                                 <div class="form-group">
@@ -69,15 +73,25 @@
                                 <div class="form-group">
                                     <label for="jenis">Jenis</label><br>
                                     <div class="form-check form-check-inline">
-                                        {!! Form::radio('jenis', 'masuk', 1, [
-                                            'class' => 'form-check-input' . ($errors->has('jenis') ? ' is-invalid' : ''),
-                                        ]) !!}
+                                        {!! Form::radio(
+                                            'jenis',
+                                            'masuk',
+                                            1,
+                                            [
+                                                'class' => 'form-check-input' . ($errors->has('jenis') ? ' is-invalid' : ''),
+                                            ] + $disable,
+                                        ) !!}
                                         <label class="form-check-label" for="jenis">Pemasukkan</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        {!! Form::radio('jenis', 'keluar', null, [
-                                            'class' => 'form-check-input' . ($errors->has('jenis') ? ' is-invalid' : ''),
-                                        ]) !!}
+                                        {!! Form::radio(
+                                            'jenis',
+                                            'keluar',
+                                            null,
+                                            [
+                                                'class' => 'form-check-input' . ($errors->has('jenis') ? ' is-invalid' : ''),
+                                            ] + $disable,
+                                        ) !!}
                                         <label class="form-check-label" for="jenis">Pengeluaran</label>
                                     </div>
                                     <span class="text-danger">{!! $errors->first('jenis') !!}</span>
@@ -86,9 +100,13 @@
 
                                 <div class="form-group">
                                     <label for="first-name-vertical">Jumlah Transaksi</label>
-                                    {!! Form::text('jumlah', null, [
-                                        'class' => 'form-control rupiah' . ($errors->has('jumlah') ? ' is-invalid' : ''),
-                                    ]) !!}
+                                    {!! Form::text(
+                                        'jumlah',
+                                        null,
+                                        [
+                                            'class' => 'form-control rupiah' . ($errors->has('jumlah') ? ' is-invalid' : ''),
+                                        ] + $disable,
+                                    ) !!}
                                     <span class="text-danger">{!! $errors->first('jumlah') !!}</span>
                                 </div>
                                 <div class="col-lg-12 col-md-6 d-flex justify-content-end">

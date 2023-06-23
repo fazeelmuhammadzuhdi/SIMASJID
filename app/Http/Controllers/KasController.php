@@ -32,10 +32,12 @@ class KasController extends Controller
         $kas = new Kas();
         $title = "Form Kas Masjid";
         $saldoAkhir = Kas::SaldoAkhir();
+        $disable = [];
         return view('kas.create', [
             'kas' => $kas,
             'title' => $title,
             'saldoAkhir' => $saldoAkhir,
+            'disable' => $disable,
         ]);
     }
 
@@ -92,17 +94,35 @@ class KasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kas $kas)
+    public function edit($id)
     {
-        //
+        $kas = Kas::findOrFail($id);
+        $title = "Form Edit Kas Masjid";
+        $saldoAkhir = Kas::SaldoAkhir();
+        $disable = ['disabled' => 'disabled'];
+        return view('kas.create', [
+            'kas' => $kas,
+            'title' => $title,
+            'saldoAkhir' => $saldoAkhir,
+            'disable' => $disable
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKasRequest $request, Kas $kas)
+    public function update(Request $request, $id)
     {
-        //
+        $requestData = $request->validate([
+            'kategori' => 'nullable',
+            'keterangan' => 'required',
+        ]);
+
+        $kas = Kas::findOrFail($id);
+        $kas->fill($requestData);
+        $kas->save();
+        flash("Data Berhasil Di Update")->success();
+        return redirect(route('kas.index'));
     }
 
     /**
