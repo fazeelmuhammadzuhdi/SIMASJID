@@ -15,7 +15,8 @@ class KasController extends Controller
     public function index()
     {
         $kas = Kas::latest()->paginate(25);
-        $title = "Data Kas Masjid";
+        // $kas = Kas::latest();
+        $title = "Data Kas";
         return view('kas.index', [
             'kas' => $kas,
             'title' => $title

@@ -85,7 +85,7 @@
                 @yield('content')
             </div>
 
-            @include('components.footer')
+            {{-- @include('components.footer') --}}
         </div>
     </div>
     @stack('before-script')
