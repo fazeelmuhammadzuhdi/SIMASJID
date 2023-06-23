@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="index.html">Dashboard</a>
+                                <a href="{{ route('home') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 {{ $title }}
@@ -26,8 +26,12 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="row d-flex">
-                            <div class="col-md-12 text-end">
+                        <div class="row justify-content-between">
+                            <div class="col-md-6">
+                                <h3>Saldo Akhir : {{ formatRupiah($saldoAkhir, true) }}</h3>
+                            </div>
+
+                            <div class="col-md-6 text-end">
                                 <a href="{{ route('kas.create') }}" class="btn btn-primary">Tambah Data Kas</a>
                             </div>
                         </div>

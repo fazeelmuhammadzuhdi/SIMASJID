@@ -17,9 +17,11 @@ class KasController extends Controller
         $kas = Kas::latest()->paginate(25);
         // $kas = Kas::latest();
         $title = "Data Kas";
+        $saldoAkhir = Kas::SaldoAkhir();
         return view('kas.index', [
             'kas' => $kas,
-            'title' => $title
+            'title' => $title,
+            'saldoAkhir' => $saldoAkhir
         ]);
     }
 
@@ -30,9 +32,11 @@ class KasController extends Controller
     {
         $kas = new Kas();
         $title = "Form Kas Masjid";
+        $saldoAkhir = Kas::SaldoAkhir();
         return view('kas.create', [
             'kas' => $kas,
             'title' => $title,
+            'saldoAkhir' => $saldoAkhir,
         ]);
     }
 
@@ -50,20 +54,14 @@ class KasController extends Controller
         ]);
 
         // Mengambil kas terakhir berdasarkan masjid yang sedang login
-        $kas = Kas::where('masjid_id', auth()->user()->masjid_id)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $saldoAkhir = Kas::SaldoAkhir();
 
-        $saldoAkhir = 0;
-        if ($kas != null) {
-            if ($requestData['jenis'] == 'masuk') {
-                $saldoAkhir = $kas->saldo_akhir + $requestData['jumlah'];
-            } else {
-                $saldoAkhir = $kas->saldo_akhir - $requestData['jumlah'];
-            }
+        if ($requestData['jenis'] == 'masuk') {
+            $saldoAkhir += $requestData['jumlah'];
         } else {
-            $saldoAkhir = $requestData['jumlah'];
+            $saldoAkhir -= $requestData['jumlah'];
         }
+
 
         if ($saldoAkhir <= -1) {
             flash('Data Kas Gagal Ditambahkan. Saldo Akhir yang dikurangi dari transaksi uang keluar tidak boleh kurang dari 0')->error();
