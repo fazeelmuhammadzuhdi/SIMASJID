@@ -5,6 +5,7 @@
 <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>
 <script>
     setTimeout(function() {
         $('.alert-success').slideUp();
@@ -22,5 +23,13 @@
             // Tambahkan kelas 'menu-open' pada elemen parent submenu
             $('.submenu-item.active').closest('.has-sub').addClass('menu-open');
         }
+
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.rupiah').mask("#.##0", {
+            reverse: true
+        });
     });
 </script>

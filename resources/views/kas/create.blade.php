@@ -86,8 +86,8 @@
 
                                 <div class="form-group">
                                     <label for="first-name-vertical">Jumlah Transaksi</label>
-                                    {!! Form::number('jumlah', null, [
-                                        'class' => 'form-control' . ($errors->has('jumlah') ? ' is-invalid' : ''),
+                                    {!! Form::text('jumlah', null, [
+                                        'class' => 'form-control rupiah' . ($errors->has('jumlah') ? ' is-invalid' : ''),
                                     ]) !!}
                                     <span class="text-danger">{!! $errors->first('jumlah') !!}</span>
                                 </div>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kas;
-use App\Http\Requests\StoreKasRequest;
 use App\Http\Requests\UpdateKasRequest;
 use Illuminate\Http\Request;
 
@@ -14,7 +13,7 @@ class KasController extends Controller
      */
     public function index()
     {
-        $kas = Kas::latest()->paginate(25);
+        $kas = Kas::UserMasjid()->latest()->paginate(25);
         // $kas = Kas::latest();
         $title = "Data Kas";
         $saldoAkhir = Kas::SaldoAkhir();
@@ -50,9 +49,12 @@ class KasController extends Controller
             'kategori' => 'nullable',
             'keterangan' => 'required',
             'jenis' => 'required|in:masuk,keluar',
-            'jumlah' => 'required|numeric',
+            'jumlah' => 'required',
         ]);
 
+
+        //membuang titik karena jika masih menggunakan titik
+        $requestData['jumlah'] = str_replace('.', '', $requestData['jumlah']);
         // Mengambil kas terakhir berdasarkan masjid yang sedang login
         $saldoAkhir = Kas::SaldoAkhir();
 

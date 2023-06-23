@@ -43,9 +43,9 @@
                                     <th width="1%">No</th>
                                     <th>Tanggal</th>
                                     <th>Kategori</th>
-                                    <th>Keterangan</th>
-                                    <th>Jenis</th>
-                                    <th>Jumlah</th>
+                                    {{-- <th>Keterangan</th> --}}
+                                    <th>Pemasukkan</th>
+                                    <th>Pengeluaran</th>
                                     <th>Saldo Akhir</th>
                                     <th>Di Input Oleh</th>
                                     <th>Aksi</th>
@@ -56,24 +56,26 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->tanggal->translatedFormat('d F Y') }}</td>
-                                        <td>{{ $item->kategori ?? 'Umum' }}</td>
+                                        {{-- <td>{{ $item->kategori ?? 'Umum' }}</td> --}}
                                         <td>{{ $item->keterangan }}</td>
-                                        <td>{{ $item->jenis }}</td>
-                                        <td>{{ formatRupiah($item->jumlah, true) }}</td>
+                                        <td>{{ $item->jenis == 'masuk' ? formatRupiah($item->jumlah, true) : '-' }}</td>
+                                        <td>{{ $item->jenis == 'keluar' ? formatRupiah($item->jumlah, true) : '-' }}</td>
                                         <td>{{ formatRupiah($item->saldo_akhir, true) }}</td>
                                         <td>{{ $item->createdBy->name }}</td>
                                         <td>
-                                            <a href="{{ route('kas.edit', $item->id) }}" class="btn btn-sm btn-warning">
-                                                Edit
-                                            </a>
-                                            <form action="{{ route('kas.destroy', $item->id) }}" method="POST"
-                                                style="display: inline-block;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                            <div class="d-flex">
+                                                <a href="{{ route('kas.edit', $item->id) }}"
+                                                    class="btn btn-sm btn-warning me-1">
+                                                    Edit
+                                                </a>
+                                                <form action="{{ route('kas.destroy', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
