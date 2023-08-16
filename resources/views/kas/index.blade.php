@@ -46,7 +46,7 @@
                                     {{-- <th>Keterangan</th> --}}
                                     <th>Pemasukkan</th>
                                     <th>Pengeluaran</th>
-                                    <th>Saldo Akhir</th>
+                                    {{-- <th>Saldo Akhir</th> --}}
                                     <th>Di Input Oleh</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -60,7 +60,7 @@
                                         <td>{{ $item->keterangan }}</td>
                                         <td>{{ $item->jenis == 'masuk' ? formatRupiah($item->jumlah, true) : '-' }}</td>
                                         <td>{{ $item->jenis == 'keluar' ? formatRupiah($item->jumlah, true) : '-' }}</td>
-                                        <td>{{ formatRupiah($item->saldo_akhir, true) }}</td>
+                                        {{-- <td>{{ formatRupiah($item->saldo_akhir, true) }}</td> --}}
                                         <td>{{ $item->createdBy->name }}</td>
                                         <td>
                                             <div class="d-flex">

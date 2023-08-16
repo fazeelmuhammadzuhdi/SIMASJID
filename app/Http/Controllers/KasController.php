@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kas;
-use App\Http\Requests\UpdateKasRequest;
 use Illuminate\Http\Request;
 
 class KasController extends Controller
@@ -13,6 +12,9 @@ class KasController extends Controller
      */
     public function index()
     {
+        // $user = auth()->user()->masjid;
+        // dd($user);
+
         $kas = Kas::UserMasjid()->latest()->paginate(25);
         // $kas = Kas::latest();
         $title = "Data Kas";
@@ -76,8 +78,12 @@ class KasController extends Controller
         $kas->fill($requestData);
         $kas->masjid_id = auth()->user()->masjid_id;
         $kas->created_by = auth()->user()->id;
-        $kas->saldo_akhir = $saldoAkhir;
+        // $kas->saldo_akhir = $saldoAkhir;
         $kas->save();
+
+        auth()->user()->masjid->update([
+            'saldo_akhir' => $saldoAkhir
+        ]);
         flash('Data Kas Masjid Berhasil Ditambahkan')->success();
         return redirect()->route('kas.index');
     }
@@ -128,8 +134,30 @@ class KasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kas $kas)
+    public function destroy($id)
     {
-        //
+        $kas = Kas::findOrFail($id);
+
+        $kas->keterangan = 'Di Hapus Oleh ' . auth()->user()->name;
+        $kas->save();
+
+        $kasBaru = $kas->replicate();
+        // dd($kasBaru);
+        $kas->keterangan = 'Perbaikan Data Id Ke' . $kas->id;
+
+        $saldoAkhir = Kas::SaldoAkhir();
+
+        if ($kas->jenis == 'masuk') {
+            $saldoAkhir -= $kas->jumlah;
+        }
+
+        if ($kas->jenis == 'keluar') {
+            $saldoAkhir -= $kas->jumlah;
+        }
+
+        // $kasBaru->saldo_akhir = $saldoAkhir;
+        $kasBaru->save();
+        flash("Data Sudah Di Simpan")->success();
+        return redirect()->back();
     }
 }

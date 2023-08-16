@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Masjid extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nama',
+        'alamat',
+        'telp',
+        'email',
+        'saldo_akhir',
+    ];
 }
