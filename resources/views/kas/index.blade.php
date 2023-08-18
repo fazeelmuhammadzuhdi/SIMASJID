@@ -1,11 +1,12 @@
 @extends('layouts.main')
 @section('content')
+   
+
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <h3>{{ $title }} {{ auth()->user()->masjid->nama }}</h3>
-                    {{-- <h3>{{ $title }} {{ $kas->first()->masjid->nama }}</h3> --}}
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -43,10 +44,8 @@
                                     <th width="1%">No</th>
                                     <th>Tanggal</th>
                                     <th>Kategori</th>
-                                    {{-- <th>Keterangan</th> --}}
                                     <th>Pemasukkan</th>
                                     <th>Pengeluaran</th>
-                                    {{-- <th>Saldo Akhir</th> --}}
                                     <th>Di Input Oleh</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -56,11 +55,9 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->tanggal->translatedFormat('d F Y') }}</td>
-                                        {{-- <td>{{ $item->kategori ?? 'Umum' }}</td> --}}
                                         <td>{{ $item->keterangan }}</td>
                                         <td>{{ $item->jenis == 'masuk' ? formatRupiah($item->jumlah, true) : '-' }}</td>
                                         <td>{{ $item->jenis == 'keluar' ? formatRupiah($item->jumlah, true) : '-' }}</td>
-                                        {{-- <td>{{ formatRupiah($item->saldo_akhir, true) }}</td> --}}
                                         <td>{{ $item->createdBy->name }}</td>
                                         <td>
                                             <div class="d-flex">
@@ -88,3 +85,4 @@
         </div>
     </div>
 @endsection
+

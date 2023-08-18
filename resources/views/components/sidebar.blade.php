@@ -21,6 +21,9 @@
                  <li class="submenu-item {{ Route::is('kas.*') ? 'active open' : '' }}">
                      <a href="{{ route('kas.index') }}">Kas Masjid</a>
                  </li>
+                 <li class="submenu-item {{ Route::is('profil.*') ? 'active open' : '' }}">
+                     <a href="{{ route('profil.index') }}">Profil Masjid</a>
+                 </li>
              </ul>
 
          </li>

@@ -47,13 +47,9 @@
 
                                 <div class="form-group mt-3">
                                     <label for="first-name-vertical">Tanggal</label>
-                                    {!! Form::date(
-                                        'tanggal',
-                                        $kas->tanggal ?? now(),
-                                        [
-                                            'class' => 'form-control' . ($errors->has('tanggal') ? ' is-invalid' : ''),
-                                        ] + $disable,
-                                    ) !!}
+                                    {!! Form::date('tanggal', $kas->tanggal ?? now(), [
+                                        'class' => 'form-control' . ($errors->has('tanggal') ? ' is-invalid' : ''),
+                                    ]) !!}
                                     <span class="text-danger">{!! $errors->first('tanggal') !!}</span>
                                 </div>
                                 <div class="form-group">
@@ -100,13 +96,9 @@
 
                                 <div class="form-group">
                                     <label for="first-name-vertical">Jumlah Transaksi</label>
-                                    {!! Form::text(
-                                        'jumlah',
-                                        null,
-                                        [
-                                            'class' => 'form-control rupiah' . ($errors->has('jumlah') ? ' is-invalid' : ''),
-                                        ] + $disable,
-                                    ) !!}
+                                    {!! Form::text('jumlah', null, [
+                                        'class' => 'form-control rupiah' . ($errors->has('jumlah') ? ' is-invalid' : ''),
+                                    ]) !!}
                                     <span class="text-danger">{!! $errors->first('jumlah') !!}</span>
                                 </div>
                                 <div class="col-lg-12 col-md-6 d-flex justify-content-end">
