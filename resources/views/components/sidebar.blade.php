@@ -27,6 +27,9 @@
                  <li class="submenu-item {{ Route::is('kategori.*') ? 'active open' : '' }}">
                      <a href="{{ route('kategori.index') }}">Kategori Informasi</a>
                  </li>
+                 <li class="submenu-item {{ Route::is('informasi.*') ? 'active open' : '' }}">
+                     <a href="{{ route('informasi.index') }}">Informasi Masjid</a>
+                 </li>
              </ul>
 
          </li>
