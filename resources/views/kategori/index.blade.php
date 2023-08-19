@@ -4,7 +4,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h4>{{ $title }} {{ auth()->user()->masjid->nama }}</h4>
+                    <h4 style="font-size: 21px">{{ $title }} {{ auth()->user()->masjid->nama }}</h4>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -27,7 +27,8 @@
                     <div class="card-header">
                         <div class="row justify-content-between">
                             <div class="col-md-6">
-                                <a href="{{ route('profil.create') }}" class="btn btn-primary">Tambah Data Profil Masjid</a>
+                                <a href="{{ route('kategori.create') }}" class="btn btn-primary">Tambah Data Kategori
+                                    Masjid</a>
                             </div>
                         </div>
                     </div>
@@ -37,35 +38,32 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th>Judul</th>
-                                        <th>Konten</th>
+                                        <th>Nama Kategori</th>
+                                        <th>Keterangan</th>
                                         <th>Dibuat Oleh</th>
                                         <th>Aksi</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($profil as $item)
+                                    @foreach ($kategori as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->judul }}</td>
-                                            <td>{{ strip_tags($item->konten) }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->keterangan ?? '-' }}</td>
                                             <td>{{ $item->createdBy->name }}</td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <a href="{{ route('profil.edit', $item->id) }}"
+                                                    <a href="{{ route('kategori.edit', $item->id) }}"
                                                         class="btn btn-sm btn-warning me-1">
-                                                        Edit
+                                                        <i class="bi bi-pen-fill"></i> Edit
                                                     </a>
-                                                    <a href="{{ route('profil.show', $item->id) }}"
-                                                        class="btn btn-sm btn-primary me-1">
-                                                        Show
-                                                    </a>
-                                                    <form action="{{ route('profil.destroy', $item->id) }}" method="POST">
+                                                    <form action="{{ route('kategori.destroy', $item->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger">
-                                                            Delete
+                                                            <i class="bi bi-trash-fill"></i> Delete
                                                         </button>
                                                     </form>
                                                 </div>

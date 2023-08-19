@@ -53,7 +53,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+                            <table class="{{ config('app.table_style') }}">
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>

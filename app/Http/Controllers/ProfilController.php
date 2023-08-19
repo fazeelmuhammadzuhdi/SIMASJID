@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profil;
-use App\Http\Requests\UpdateProfilRequest;
 use Illuminate\Http\Request;
-use Storage;
-use Str;
 
 class ProfilController extends Controller
 {
