@@ -11,19 +11,31 @@ class KasController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // $user = auth()->user()->masjid;
         // dd($user);
+        $query = Kas::UserMasjid();
 
-        $kas = Kas::UserMasjid()->latest()->paginate(25);
-        // $kas = Kas::latest();
+        if ($request->filled('q')) {
+            $query->where('keterangan', 'LIKE', '%' . $request->q . '%');
+        }
+
+        if ($request->filled('tanggal')) {
+            $query->where('tanggal', $request->tanggal);
+        }
+
+        $kas = $query->latest()->paginate(25);
         $title = "Data Kas";
         $saldoAkhir = Kas::SaldoAkhir();
+        $totalPemasukan = $kas->where('jenis', 'masuk')->sum('jumlah');
+        $totalPengeluaran = $kas->where('jenis', 'keluar')->sum('jumlah');
         return view('kas.index', [
             'kas' => $kas,
             'title' => $title,
-            'saldoAkhir' => $saldoAkhir
+            'saldoAkhir' => $saldoAkhir,
+            'totalPemasukan' => $totalPemasukan,
+            'totalPengeluaran' => $totalPengeluaran,
         ]);
     }
 
