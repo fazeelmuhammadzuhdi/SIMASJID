@@ -3,6 +3,10 @@
 namespace App\Models;
 
 use App\Traits\ConvertContentImageBase64ToUrl;
+use App\Traits\GenerateSlug;
+use App\Traits\HasCreatedBy;
+use App\Traits\HasMasjid;
+use App\Traits\HasMasjidId;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Profil extends Model
 {
     use HasFactory;
+    use HasCreatedBy, HasMasjid, GenerateSlug;
     use ConvertContentImageBase64ToUrl;
     /**
      * The attributes that aren't mass assignable.
@@ -18,15 +23,4 @@ class Profil extends Model
      */
     protected $guarded = [];
     protected $contentName = 'konten';
-
-
-    public function createdBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function scopeUserMasjid($q)
-    {
-        return $q->where('masjid_id', auth()->user()->masjid_id);
-    }
 }

@@ -22,6 +22,16 @@
 </script>
 <script>
     setTimeout(function() {
+        $('.alert-info').slideUp();
+    }, 5000); // Pesan flash akan hilang setelah 5 detik (5000 milidetik)
+</script>
+<script>
+    setTimeout(function() {
+        $('.alert-primary').slideUp();
+    }, 5000); // Pesan flash akan hilang setelah 5 detik (5000 milidetik)
+</script>
+<script>
+    setTimeout(function() {
         $('.alert-danger').slideUp();
     }, 3000); // Pesan flash akan hilang setelah 5 detik (5000 milidetik)
 </script>

@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\HasCreatedBy;
+use App\Traits\HasMasjid;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Kas extends Model
 {
     use HasFactory;
+    use HasCreatedBy, HasMasjid;
     /**
      * The table associated with the model.
      *
@@ -46,21 +48,26 @@ class Kas extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function masjid(): BelongsTo
-    {
-        return $this->belongsTo(Masjid::class);
-    }
+    // public function masjid(): BelongsTo
+    // {
+    //     return $this->belongsTo(Masjid::class);
+    // }
 
     /**
      * Get the createdBy that owns the Kas
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function createdBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
+    // public function createdBy(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class, 'created_by');
+    // }
 
+    // public function scopeUserMasjid($q)
+    // {
+    //     return $q->where('masjid_id', auth()->user()->masjid_id);
+    // }
+    
     public function scopeSaldoAkhir($query, $masjidId = null)
     {
         // $masjidId = $masjidId ?? auth()->user()->masjid_id;
@@ -73,8 +80,5 @@ class Kas extends Model
         return $masjid->saldo_akhir ?? 0;
     }
 
-    public function scopeUserMasjid($q)
-    {
-        return $q->where('masjid_id', auth()->user()->masjid_id);
-    }
+    
 }

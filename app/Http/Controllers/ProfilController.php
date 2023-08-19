@@ -48,9 +48,7 @@ class ProfilController extends Controller
             'judul' => 'required',
             'konten' => 'required',
         ]);
-        $requestData['created_by'] = auth()->user()->id;
-        $requestData['masjid_id'] = auth()->user()->masjid_id;
-        $requestData['slug'] = Str::slug($request->judul);
+
         Profil::create($requestData);
         flash("Data Profil Masjid Berhasil Di Simpan")->success();
         return redirect()->route('profil.index');
@@ -93,9 +91,7 @@ class ProfilController extends Controller
             'judul' => 'required',
             'konten' => 'required',
         ]);
-        $requestData['created_by'] = auth()->user()->id;
-        $requestData['masjid_id'] = auth()->user()->masjid_id;
-        $requestData['slug'] = Str::slug($request->judul);
+
         $profil = Profil::findOrFail($profil->id);
         $profil->update($requestData);
         flash("Data Profil Masjid Berhasil Di Update")->success();
