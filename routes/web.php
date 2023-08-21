@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KurbanController;
 use App\Http\Controllers\MasjidController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\UserProfileController;
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('masjid', MasjidController::class);
 
     Route::middleware(EnsureDataMasjidCompleted::class)->group(function () {
+        Route::resource('kurban', KurbanController::class);
         Route::resource('informasi', InformasiController::class);
         Route::resource('kategori', KategoriController::class);
         Route::resource('profil', ProfilController::class);

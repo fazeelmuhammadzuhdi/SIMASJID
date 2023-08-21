@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Informasi;
-use App\Http\Requests\UpdateInformasiRequest;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 

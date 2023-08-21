@@ -27,8 +27,8 @@
                     <div class="card-header">
                         <div class="row justify-content-between">
                             <div class="col-md-6">
-                                <a href="{{ route('informasi.create') }}" class="btn btn-primary">Tambah Data Informasi
-                                    Masjid</a>
+                                <a href="{{ route('kurban.create') }}" class="btn btn-primary">Tambah Data Informasi
+                                    Informasi Kurban</a>
                             </div>
                         </div>
                     </div>
@@ -38,34 +38,29 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th>Informasi</th>
+                                        <th>Tahun Kurban</th>
+                                        <th>Tanggal Akhir Pendaftaran</th>
+                                        <th>Konten</th>
                                         <th>Dibuat Oleh</th>
                                         <th>Aksi</th>
 
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    @foreach ($informasi as $item)
+                                    @foreach ($kurban as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>
-                                                <div class="fw-bold">{{ $item->judul }}
-                                                </div>
-                                                {!! $item->konten !!}
-                                            </td>
+                                            <td>{{ $item->tahun_hijriah }} H / {{ $item->tahun_masehi }} M</td>
+                                            <td>{{ $item->tanggal_akhir_pendaftaran->translatedFormat('d F Y') }}</td>
+                                            <td>{!! $item->konten !!}</td>
                                             <td>{{ $item->createdBy->name }}</td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <a href="{{ route('informasi.edit', $item->id) }}"
+                                                    <a href="{{ route('kurban.edit', $item->id) }}"
                                                         class="btn btn-sm btn-warning me-1">
                                                         <i class="bi bi-pen-fill"></i> Edit
                                                     </a>
-                                                    <a href="{{ route('informasi.show', $item->id) }}"
-                                                        class="btn btn-sm btn-primary me-1">
-                                                        <i class="bi bi-eye-fill"></i> Show
-                                                    </a>
-                                                    <form action="{{ route('informasi.destroy', $item->id) }}"
-                                                        method="POST">
+                                                    <form action="{{ route('kurban.destroy', $item->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger">

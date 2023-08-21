@@ -31,6 +31,20 @@
                      <a href="{{ route('informasi.index') }}">Informasi Masjid</a>
                  </li>
              </ul>
+         </li>
+
+         <li class="sidebar-item has-sub {{ Route::is('kurban.*') ? 'active open' : '' }}">
+
+             <a href="#" class="sidebar-link">
+                 <i class="bi bi-stack"></i>
+                 <span>Data Kurban</span>
+             </a>
+             <ul class="submenu {{ Route::is('kurban.*') ? 'menu-open' : '' }}">
+                 <li class="submenu-item {{ Route::is('kurban.*') ? 'active open' : '' }}">
+                     <a href="{{ route('kurban.index') }}">Informasi Kurban</a>
+                 </li>
+
+             </ul>
 
          </li>
 

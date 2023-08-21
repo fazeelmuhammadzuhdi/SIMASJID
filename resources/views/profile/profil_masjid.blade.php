@@ -55,17 +55,17 @@
                                                 <div class="d-flex">
                                                     <a href="{{ route('profil.edit', $item->id) }}"
                                                         class="btn btn-sm btn-warning me-1">
-                                                        Edit
+                                                        <i class="bi bi-pen-fill"></i> Edit
                                                     </a>
                                                     <a href="{{ route('profil.show', $item->id) }}"
                                                         class="btn btn-sm btn-primary me-1">
-                                                        Show
+                                                        <i class="bi bi-eye-fill"></i> Show
                                                     </a>
                                                     <form action="{{ route('profil.destroy', $item->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger">
-                                                            Delete
+                                                            <i class="bi bi-trash-fill"></i> Delete
                                                         </button>
                                                     </form>
                                                 </div>
