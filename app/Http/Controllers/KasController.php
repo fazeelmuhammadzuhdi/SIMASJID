@@ -125,9 +125,9 @@ class KasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Kas $ka)
     {
-        $kas = Kas::findOrFail($id);
+        $kas = $ka;
         $title = "Form Edit Kas Masjid";
         $saldoAkhir = Kas::SaldoAkhir();
         $disable = ['disabled' => 'disabled'];
@@ -142,7 +142,7 @@ class KasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Kas $ka)
     {
         $requestData = $request->validate([
             'kategori' => 'nullable',
@@ -152,7 +152,7 @@ class KasController extends Controller
         ]);
 
         $jumlah = str_replace('.', '', $requestData['jumlah']);
-        $kas = Kas::findOrFail($id);
+        $kas = $ka;
 
         $saldoAkhir = Kas::SaldoAkhir();
 
@@ -178,9 +178,9 @@ class KasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Kas $ka)
     {
-        $kas = Kas::findOrFail($id);
+        $kas = $ka;
         $saldoAkhir = Kas::SaldoAkhir();
 
         if ($kas->jenis == 'masuk') {

@@ -89,7 +89,6 @@ class ProfilController extends Controller
             'konten' => 'required',
         ]);
 
-        $profil = Profil::findOrFail($profil->id);
         $profil->update($requestData);
         flash("Data Profil Masjid Berhasil Di Update")->success();
         return redirect()->route('profil.index');

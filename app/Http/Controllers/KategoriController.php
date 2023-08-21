@@ -75,7 +75,6 @@ class KategoriController extends Controller
             'keterangan' => 'nullable',
         ]);
 
-        $kategori = Kategori::findOrFail($kategori->id);
         $kategori->update($requestData);
         flash("Data Kategori Informasi Masjid Berhasil Di Update")->success();
         return redirect()->route('kategori.index');

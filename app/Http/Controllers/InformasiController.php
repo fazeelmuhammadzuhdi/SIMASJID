@@ -27,7 +27,7 @@ class InformasiController extends Controller
         $data['informasi'] = new Informasi();
         $data['route'] = 'informasi.store';
         $data['method'] = 'POST';
-        $data['listKategori'] = Kategori::pluck('nama', 'id');
+        $data['listKategori'] = Kategori::where('masjid_id', auth()->user()->masjid_id)->pluck('nama', 'id');
         $data['title'] = "Form Informasi Masjid";
         return view('informasi.create', $data);
     }
@@ -84,7 +84,6 @@ class InformasiController extends Controller
             'konten' => 'required',
         ]);
 
-        $informasi = Informasi::findOrFail($informasi->id);
         $informasi->update($requestData);
         flash("Data informasi Masjid Berhasil Di Update")->success();
         return redirect()->route('informasi.index');

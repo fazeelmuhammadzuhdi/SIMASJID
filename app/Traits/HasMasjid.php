@@ -28,4 +28,11 @@ trait HasMasjid
     {
         return $this->belongsTo(Masjid::class);
     }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('masjid_id', auth()->user()->masjid_id)
+            ->where('id', $value)
+            ->firstOrFail();
+    }
 }
