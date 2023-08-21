@@ -60,6 +60,11 @@
                                                         class="btn btn-sm btn-warning me-1">
                                                         <i class="bi bi-pen-fill"></i> Edit
                                                     </a>
+
+                                                    <a href="{{ route('kurban.show', $item->id) }}"
+                                                        class="btn btn-sm btn-info me-1">
+                                                        <i class="bi bi-eye-fill"></i> Show
+                                                    </a>
                                                     <form action="{{ route('kurban.destroy', $item->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')

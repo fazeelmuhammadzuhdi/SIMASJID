@@ -52,7 +52,9 @@ class KurbanController extends Controller
      */
     public function show(Kurban $kurban)
     {
-        //
+        $data['kurban'] =  $kurban;
+        $data['title'] = "Detail Data Kurban";
+        return view('kurban.detail', $data);
     }
 
     /**

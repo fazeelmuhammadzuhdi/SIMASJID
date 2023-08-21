@@ -7,6 +7,7 @@ use App\Traits\HasCreatedBy;
 use App\Traits\HasMasjid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Kurban extends Model
 {
@@ -23,4 +24,14 @@ class Kurban extends Model
         'tanggal_akhir_pendaftaran' => 'datetime:d-m-Y H:i',
     ];
     protected $contentName = 'konten';
+
+    /**
+     * Get all of the kurbanHewan for the Kurban
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function kurbanHewan(): HasMany
+    {
+        return $this->hasMany(KurbanHewan::class);
+    }
 }
