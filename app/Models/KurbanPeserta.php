@@ -34,4 +34,13 @@ class KurbanPeserta extends Model
     {
         return $this->belongsTo(KurbanHewan::class);
     }
+
+    public function getStatusTeks()
+    {
+        if ($this->status_bayar == 'LUNAS') {
+            return 'LUNAS';
+        } else {
+            return 'BELUM LUNAS';
+        }
+    }
 }

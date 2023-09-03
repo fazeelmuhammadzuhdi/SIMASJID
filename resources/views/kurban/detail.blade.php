@@ -119,7 +119,7 @@
                                 'kurban_id' => $kurban->id,
                             ]) }}"
                                 class="btn btn-primary">
-                                Buat Baru
+                                Pendaftaran Peserta Kurban Baru
                             </a>
                         @endif
                         @if ($kurban->kurbanPeserta->count() == 0)
@@ -158,30 +158,36 @@
                                             </td>
                                             <td class=" text-center">
                                                 @if ($item->status_bayar == 'LUNAS')
-                                                    <span class="badge bg-success">LUNAS</span>
+                                                    <span class="badge bg-success">{{ $item->getStatusTeks() }}</span>
                                                 @else
-                                                    <span class="badge bg-danger">BELUM LUNAS</span>
+                                                    <span class="badge bg-danger">{{ $item->getStatusTeks() }}</span>
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="d-flex">
-                                                    <a href="{{ route('kurbanpeserta.edit', [$item->id, 'kurban_id' => $item->kurban_id]) }}"
-                                                        class="btn btn-sm btn-warning me-1">
-                                                        <i class="bi bi-pen-fill"></i> Edit
-                                                    </a>
 
-                                                    <form
-                                                        action="{{ route('kurbanpeserta.destroy', [$item->id, 'kurban_id' => $item->kurban_id]) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            onclick="return confirm('Apakah Yakin Ingin Mengahapus Data Ini ?')"
-                                                            class="btn btn-sm btn-danger">
-                                                            <i class="bi bi-trash-fill"></i> Delete
-                                                        </button>
-                                                    </form>
-                                                </div>
+                                                @if ($item->status_bayar == 'BELUM LUNAS')
+                                                    <div class="d-flex">
+                                                        <a href="{{ route('kurbanpeserta.edit', [$item->id, 'kurban_id' => $item->kurban_id]) }}"
+                                                            class="btn btn-sm btn-primary me-1">
+                                                            <i class="bi bi-pen-fill"></i> Pembayaran
+                                                        </a>
+
+                                                        <form
+                                                            action="{{ route('kurbanpeserta.destroy', [$item->id, 'kurban_id' => $item->kurban_id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                onclick="return confirm('Apakah Yakin Ingin Mengahapus Data Ini ?')"
+                                                                class="btn btn-sm btn-danger">
+                                                                <i class="bi bi-trash-fill"></i> Delete
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                @else
+                                                    <span class="badge bg-info">Sudah Lunas</span>
+                                                @endif
+
                                             </td>
                                         </tr>
                                     @endforeach

@@ -32,59 +32,28 @@
                                     'route' => $route,
                                 ]) !!}
                                 {!! Form::hidden('kurban_id', $kurban->id, []) !!}
-                                <div class="form-group">
-                                    <label for="first-name-vertical">Nama Lengkap Peserta Kurban</label>
-                                    {!! Form::text('nama', null, ['class' => 'form-control', 'autofocus']) !!}
-                                    <span class="text-danger">{!! $errors->first('nama') !!}</span>
-                                </div>
+                                <h4>Status Pembayaran {{ $kurbanpeserta->peserta->nama }} :
+                                    {{ $kurbanpeserta->getStatusTeks() }}</h4>
 
-                                <div class="form-group">
-                                    <label for="first-name-vertical">Nama Tampilan</label>
-                                    {!! Form::text('nama_tampilan', $kurbanpeserta->nama_tampilan ?? 'Hamba Allah', [
-                                        'class' => 'form-control',
-                                    ]) !!}
-                                    <span class="text-danger">{!! $errors->first('nama_tampilan') !!}</span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="first-name-vertical">No Hp Peserta Kurban</label>
-                                    {!! Form::text('nohp', null, ['class' => 'form-control']) !!}
-                                    <span class="text-danger">{!! $errors->first('nohp') !!}</span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="first-name-vertical">Alamat Peserta Kurban</label>
-                                    {!! Form::textarea('alamat', null, ['class' => 'form-control', 'rows' => 3]) !!}
-                                    <span class="text-danger">{!! $errors->first('biaya_operasional') !!}</span>
-                                </div>
-
+                                <h6>Informasi Iuran Perorang :
+                                    {{ formatRupiah($kurbanpeserta->kurbanHewan->iuran_perorang, true) }}</h6>
                                 <div class="form-group">
                                     <label for="first-name-vertical">Hewan Kurban</label>
                                     {!! Form::select('kurban_hewan_id', $listKurbanHewan, null, ['class' => 'form-control']) !!}
                                     <span class="text-danger">{!! $errors->first('kurban_hewan_id') !!}</span>
                                 </div>
 
+
                                 <div class="form-group">
-                                    {!! Form::checkbox('status_bayar', 1, $kurbanpeserta->status_bayar ?? false, [
-                                        'class' => 'form-check-input',
-                                        'id' => 'my-input',
-                                    ]) !!}
-                                    <label for="first-name-vertical">Sudah Melakukan Pembayaran</label>
-                                    <span class="text-danger">{!! $errors->first('status_bayar') !!}</span>
+                                    <label for="first-name-vertical">Total Pembayaran</label>
+                                    {!! Form::text('total_bayar', null, ['class' => 'form-control rupiah']) !!}
+                                    <span class="text-danger">{!! $errors->first('total_bayar') !!}</span>
                                 </div>
 
-                                <div class="pembayaran">
-                                    <div class="form-group">
-                                        <label for="first-name-vertical">Total Pembayaran</label>
-                                        {!! Form::text('total_bayar', null, ['class' => 'form-control rupiah']) !!}
-                                        <span class="text-danger">{!! $errors->first('total_bayar') !!}</span>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="first-name-vertical">Tanggal Pembayaran</label>
-                                        {!! Form::text('tanggal_bayar', $kurbanpeserta->tanggal_bayar ?? now(), ['class' => 'form-control']) !!}
-                                        <span class="text-danger">{!! $errors->first('tanggal_bayar') !!}</span>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="first-name-vertical">Tanggal Pembayaran</label>
+                                    {!! Form::text('tanggal_bayar', $kurbanpeserta->tanggal_bayar ?? now(), ['class' => 'form-control']) !!}
+                                    <span class="text-danger">{!! $errors->first('tanggal_bayar') !!}</span>
                                 </div>
 
                                 <div class="col-lg-12 col-md-6 d-flex justify-content-end">

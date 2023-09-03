@@ -83,30 +83,63 @@ class KurbanPesertaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(KurbanPeserta $kurbanPeserta)
+    public function edit(KurbanPeserta $kurbanpesertum)
     {
-        //
+        // dd($kurbanpesertum);
+
+        $kurban = Kurban::UserMasjid()->where('id', request('kurban_id'))->firstOrFail();
+        $data['listKurbanHewan'] = $kurban->kurbanHewan->pluck('nama_full', 'id');
+        // dd($data['listKurbanHewan']);
+        $data['kurbanpeserta'] = $kurbanpesertum;
+        $data['route'] = ['kurbanpeserta.update', $kurbanpesertum->id];
+        $data['method'] = 'PUT';
+        $data['kurban'] = $kurban;
+        $data['title'] = "Form Pembayaran Peserta Kurban Masjid";
+        return view('kurbanpeserta.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKurbanPesertaRequest $request, KurbanPeserta $kurbanPeserta)
+    public function update(UpdateKurbanPesertaRequest $request, $id)
     {
-        //
+        $model = KurbanPeserta::where('id', $id)->where('kurban_hewan_id', $request->kurban_hewan_id)->firstOrFail();
+
+
+        $iuranPerorang = $model->kurbanHewan->iuran_perorang;
+        $totalBayar = $request->total_bayar;
+
+        if ($totalBayar < $iuranPerorang) {
+            flash("Total Bayar Tidak Boleh Kurang Dari Iuran Perorang")->error();
+            return back();
+        }
+        $model->status_bayar = "LUNAS";
+        $model->update($request->validated());
+        flash("Data Berhasil Di Update")->success();
+        return back();
+        // return redirect()->route('kurban.show', $model->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KurbanPeserta $kurbanpesertum)
+    public function destroy(KurbanPeserta $kurbanpesertum, Peserta $pesertum)
     {
+
+
 
         if ($kurbanpesertum->status_bayar == 'LUNAS') {
             flash("Data Peserta Kurban Tidak Bisa Di Hapus Karena Pembayaran Sudah Lunas")->error();
             return back();
         }
-        $kurbanpesertum->delete();
+        $hapusKurbanPeserta =  $kurbanpesertum->delete();
+
+        dd($pesertum);
+
+        if ($hapusKurbanPeserta) {
+            $pesertum->delete();
+        }
+
         flash("Data Informasi Peserta Kurban Masjid Berhasil Di Hapus")->success();
         return back();
         // dd($kurbanpesertum);
