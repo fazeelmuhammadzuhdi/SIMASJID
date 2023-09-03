@@ -18,4 +18,7 @@ class Peserta extends Model
      * @var array
      */
     protected $guarded = [];
+    
+    
+    
 }

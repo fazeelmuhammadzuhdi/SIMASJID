@@ -73,16 +73,18 @@
                                     <span class="text-danger">{!! $errors->first('status_bayar') !!}</span>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="first-name-vertical">Total Pembayaran</label>
-                                    {!! Form::text('total_bayar', null, ['class' => 'form-control rupiah']) !!}
-                                    <span class="text-danger">{!! $errors->first('total_bayar') !!}</span>
-                                </div>
+                                <div class="pembayaran">
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Total Pembayaran</label>
+                                        {!! Form::text('total_bayar', null, ['class' => 'form-control rupiah']) !!}
+                                        <span class="text-danger">{!! $errors->first('total_bayar') !!}</span>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label for="first-name-vertical">Tanggal Pembayaran</label>
-                                    {!! Form::date('tanggal_bayar', $kurbanpeserta->status_bayar ?? now(), ['class' => 'form-control']) !!}
-                                    <span class="text-danger">{!! $errors->first('kurban_hewan_id') !!}</span>
+                                    <div class="form-group">
+                                        <label for="first-name-vertical">Tanggal Pembayaran</label>
+                                        {!! Form::date('tanggal_bayar', $kurbanpeserta->status_bayar ?? now(), ['class' => 'form-control']) !!}
+                                        <span class="text-danger">{!! $errors->first('kurban_hewan_id') !!}</span>
+                                    </div>
                                 </div>
 
                                 <div class="col-lg-12 col-md-6 d-flex justify-content-end">
@@ -106,3 +108,18 @@
         </section>
     </div>
 @endsection
+
+@push('after-script')
+    <script>
+        $(document).ready(function() {
+            $('.pembayaran').hide();
+            $('#my-input').change(function(e) {
+                if ($(this).is(':checked')) {
+                    $('.pembayaran').show();
+                } else {
+                    $('.pembayaran').hide();
+                }
+            });
+        });
+    </script>
+@endpush

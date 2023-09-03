@@ -46,24 +46,26 @@ class KurbanPesertaController extends Controller
         DB::beginTransaction();
         $peserta = Peserta::create($requestDataPeserta);
 
+        $statusBayar = 'BELUM LUNAS';
         if ($requestKurbanPeserta->filled('status_bayar')) {
-            $requestKurbanPeserta = $requestKurbanPeserta->validated();
-            $kurbanHewan = KurbanHewan::UserMasjid()->where('id', $requestKurbanPeserta['kurban_hewan_id'])->firstOrFail();
-
-            $totalBayar = $requestKurbanPeserta['total_bayar'] ?? $kurbanHewan->iuran_perorang;
-
-            $dataKurbanPeserta = [
-                'kurban_id' => $kurbanHewan->kurban_id,
-                'kurban_hewan_id' => $kurbanHewan->id,
-                'peserta_id' => $peserta->id,
-                'total_bayar' => $totalBayar,
-                'tanggal_bayar' => $requestKurbanPeserta['tanggal_bayar'],
-                'metode_bayar' => "TUNAI",
-                'bukti_bayar' => "OK",
-                'status_bayar' => "LUNAS",
-            ];
-            KurbanPeserta::create($dataKurbanPeserta);
+            $statusBayar = 'LUNAS';
         }
+        $requestKurbanPeserta = $requestKurbanPeserta->validated();
+        $kurbanHewan = KurbanHewan::UserMasjid()->where('id', $requestKurbanPeserta['kurban_hewan_id'])->firstOrFail();
+
+        $totalBayar = $requestKurbanPeserta['total_bayar'] ?? $kurbanHewan->iuran_perorang;
+
+        $dataKurbanPeserta = [
+            'kurban_id' => $kurbanHewan->kurban_id,
+            'kurban_hewan_id' => $kurbanHewan->id,
+            'peserta_id' => $peserta->id,
+            'total_bayar' => $totalBayar,
+            'tanggal_bayar' => $requestKurbanPeserta['tanggal_bayar'],
+            'metode_bayar' => "TUNAI",
+            'bukti_bayar' => "OK",
+            'status_bayar' => $statusBayar,
+        ];
+        KurbanPeserta::create($dataKurbanPeserta);
         DB::commit();
         // dd($data);   
         flash("Data Informasi Peserta Kurban Masjid Berhasil Di Simpan")->success();
@@ -97,8 +99,16 @@ class KurbanPesertaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KurbanPeserta $kurbanPeserta)
+    public function destroy(KurbanPeserta $kurbanpesertum)
     {
-        //
+
+        if ($kurbanpesertum->status_bayar == 'LUNAS') {
+            flash("Data Peserta Kurban Tidak Bisa Di Hapus Karena Pembayaran Sudah Lunas")->error();
+            return back();
+        }
+        $kurbanpesertum->delete();
+        flash("Data Informasi Peserta Kurban Masjid Berhasil Di Hapus")->success();
+        return back();
+        // dd($kurbanpesertum);
     }
 }

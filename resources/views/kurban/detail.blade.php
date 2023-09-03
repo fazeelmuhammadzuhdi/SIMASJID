@@ -122,7 +122,6 @@
                                 Buat Baru
                             </a>
                         @endif
-
                         @if ($kurban->kurbanPeserta->count() == 0)
                             <div class="text-center fw-bold">
                                 Belum Ada Data <a
@@ -137,10 +136,11 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Hewan</th>
-                                        <th>Iuran Perorang</th>
-                                        <th>Harga Hewan</th>
-                                        <th>Biaya Operasional</th>
+                                        <th>Nama Peserta</th>
+                                        <th>Nomor Hp</th>
+                                        <th>Alamat</th>
+                                        <th>Hewan Kurban</th>
+                                        <th>Status Pembayaran</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -148,10 +148,21 @@
                                     @foreach ($kurban->kurbanPeserta as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ ucwords($item->hewan) }} ({{ $item->kriteria }})</td>
-                                            <td>{{ formatRupiah($item->iuran_perorang, true) }}</td>
-                                            <td>{{ formatRupiah($item->harga, true) }}</td>
-                                            <td>{{ formatRupiah($item->biaya_operasional, true) }}</td>
+                                            <td>{{ $item->peserta->nama ?? '' }}</td>
+                                            <td>{{ $item->peserta->nohp ?? '' }}</td>
+                                            <td>{{ $item->peserta->alamat ?? '' }}</td>
+                                            <td>
+                                                {{ ucwords($item->kurbanHewan->hewan) }} -
+                                                {{ formatRupiah($item->kurbanHewan->iuran_perorang, true) }}
+
+                                            </td>
+                                            <td class=" text-center">
+                                                @if ($item->status_bayar == 'LUNAS')
+                                                    <span class="badge bg-success">LUNAS</span>
+                                                @else
+                                                    <span class="badge bg-danger">BELUM LUNAS</span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <div class="d-flex">
                                                     <a href="{{ route('kurbanpeserta.edit', [$item->id, 'kurban_id' => $item->kurban_id]) }}"
